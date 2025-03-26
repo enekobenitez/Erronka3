@@ -80,6 +80,8 @@ return [
     'Saskia Garbitu' => 'Saskia Garbitu',
     'Erosi' => 'Erosi',
     'Erosketa arrakastatsua izan da!' => 'Erosketa arrakastatsua izan da!',
+    'Argazkia ez dago' => 'Argazkia ez dago',
+    'Saskia hutsik dago' => 'Saskia hutsik dago',
 
     //kontaktua
     'Hornitzaileak Kudeatu' => 'Hornitzaileak Kudeatu',

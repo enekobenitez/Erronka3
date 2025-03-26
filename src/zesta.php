@@ -17,6 +17,27 @@ if (isset($_POST['selectedLang'])) {
 }
 
 $translations = require __DIR__ . "/itzulpenak/" . $lang . ".php";  
+
+$productosAgrupados = [];
+
+if (!isset($_SESSION['saskia']) || empty($_SESSION['saskia'])) {
+    $carritoVacio = true;
+} else {
+    $carritoVacio = false;
+    foreach ($_SESSION['saskia'] as $item) {
+        if (!isset($item['izena'])) {
+            $item['izena'] = $item['mota'] . ' ' . $item['marka']; 
+        }
+
+        $clave = $item['izena'];
+        if (!isset($productosAgrupados[$clave])) {
+            $productosAgrupados[$clave] = $item;
+            $productosAgrupados[$clave]['cantidad'] = 1;
+        } else {
+            $productosAgrupados[$clave]['cantidad']++;
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $lang; ?>">
@@ -58,22 +79,9 @@ $translations = require __DIR__ . "/itzulpenak/" . $lang . ".php";
 <main>
     <section>
         <h2><?php echo $translations['Saskian dauden produktuak']; ?></h2>
-        <?php
-       foreach ($_SESSION['saskia'] as $item) {
-           if (!isset($item['izena'])) {
-               $item['izena'] = $item['mota'] . ' ' . $item['marka']; 
-           }
-       
-           $clave = $item['izena'];
-           if (!isset($productosAgrupados[$clave])) {
-               $productosAgrupados[$clave] = $item;
-               $productosAgrupados[$clave]['cantidad'] = 1;
-           } else {
-               $productosAgrupados[$clave]['cantidad']++;
-           }
-       }
-            $totalGeneral = 0;
-            ?>
+        <?php if ($carritoVacio): ?>
+            <p><?php echo $translations['Saskia hutsik dago']; ?></p>
+        <?php else: ?>
             <table>
                 <thead>
                     <tr>
@@ -84,18 +92,20 @@ $translations = require __DIR__ . "/itzulpenak/" . $lang . ".php";
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($productosAgrupados as $producto):
-                            $subtotal = floatval($producto['prezioa']) * $producto['cantidad'];
-                            $totalGeneral += $subtotal;
+                    <?php 
+                    $totalGeneral = 0;
+                    foreach ($productosAgrupados as $producto):
+                        $subtotal = floatval($producto['prezioa']) * $producto['cantidad'];
+                        $totalGeneral += $subtotal;
                     ?>
                     <tr>
-                    <td>
-                        <?php if (!empty($producto['argazkia_URL'])): ?>
-                            <img src="<?php echo htmlspecialchars($producto['argazkia_URL']); ?>" alt="<?php echo htmlspecialchars($producto['izena']); ?>">
-                        <?php else: ?>
-                            <p><?php echo $translations['Argazkia ez dago']; ?></p>
-                        <?php endif; ?>
-                    </td>
+                        <td>
+                            <?php if (!empty($producto['argazkia_URL'])): ?>
+                                <img src="<?php echo htmlspecialchars($producto['argazkia_URL']); ?>" alt="<?php echo htmlspecialchars($producto['izena']); ?>" width="80" height="80">
+                            <?php else: ?>
+                                <p><?php echo $translations['Argazkia ez dago']; ?></p>
+                            <?php endif; ?>
+                        </td>
                         <td><?php echo htmlspecialchars($producto['izena']); ?></td>
                         <td><?php echo htmlspecialchars($producto['cantidad']); ?></td>
                         <td><?php echo number_format($subtotal, 2, ',', '.'); ?>€</td>
@@ -109,9 +119,7 @@ $translations = require __DIR__ . "/itzulpenak/" . $lang . ".php";
                     </tr>
                 </tfoot>
             </table>
-            <?php
-        
-        ?>
+        <?php endif; ?>
         <form method="POST">
             <button class="garbitu-btn" id="garbituBotoia" type="submit" name="garbitu"><?php echo $translations['Saskia Garbitu']; ?></button>
             <button class="erosi-btn" id="erosiBotoia" type="submit" name="erosi"><?php echo $translations['Erosi']; ?></button>
@@ -119,13 +127,13 @@ $translations = require __DIR__ . "/itzulpenak/" . $lang . ".php";
     </section>
 </main>
 <?php
-if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['garbitu'])){
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['garbitu'])) {
     $_SESSION['saskia'] = [];
     echo "<script>window.location.href = 'zesta.php';</script>";
 }
 
-if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['erosi'])){
-    if(!empty($_SESSION['saskia'])){
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['erosi'])) {
+    if (!empty($_SESSION['saskia'])) {
         $erabiltzailea = $_SESSION['erabiltzailea'];
         $queryErabiltzaile = "SELECT ID FROM erabiltzaileak WHERE Erabiltzailea = ?";
         $stmt = $conn->prepare($queryErabiltzaile);
@@ -135,7 +143,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['erosi'])){
         $row = $result->fetch_assoc();
         $idErabiltzailea = $row['ID'];
 
-        foreach($productosAgrupados as $producto){
+        foreach ($productosAgrupados as $producto) {
             $izena = $producto['izena'];
             $queryProduktua = "SELECT ID FROM stock WHERE Izena = ?";
             $stmt = $conn->prepare($queryProduktua);

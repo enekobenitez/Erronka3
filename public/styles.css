@@ -1,6 +1,6 @@
 body {
-    font-family: 'Roboto', sans-serif; /* Fuente moderna */
-    background: #f4f4f4; /* Fondo gris claro */
+    font-family: 'Roboto', sans-serif; 
+    background: #f4f4f4; 
     color: #333333;
     margin: 0;
     padding: 0;
@@ -8,7 +8,7 @@ body {
 }
 
 header {
-    background-color: #0056b3; /* Azul Decathlon */
+    background-color: #0056b3; 
     padding: 20px;
     display: flex;
     justify-content: space-between;
@@ -43,7 +43,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    color: #ffcc00; /* Amarillo para resaltar */
+    color: #ffcc00; 
 }
 
 main {
@@ -108,7 +108,7 @@ main {
 }
 
 .produktua button:hover {
-    background-color: #003d80; /* Azul más oscuro */
+    background-color: #003d80; 
 }
 
 footer {
@@ -160,6 +160,14 @@ footer {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 15px;
     z-index: 1000;
+}
+
+#saskia img {
+    width: 80px; 
+    height: 80px; 
+    object-fit: cover; 
+    border-radius: 5px; 
+    margin: 5px 0; 
 }
 
 #saskia.erakutsi {

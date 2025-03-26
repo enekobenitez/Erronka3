@@ -59,19 +59,19 @@ $translations = require __DIR__ . "/itzulpenak/" . $lang . ".php";
     <section>
         <h2><?php echo $translations['Saskian dauden produktuak']; ?></h2>
         <?php
-        if(empty($_SESSION['saskia'])){
-            echo "<p>" . $translations['Zure saskia hutsik dago.'] . "</p>";
-        } else {
-            $productosAgrupados = [];
-            foreach($_SESSION['saskia'] as $item){
-                $clave = $item['izena'];
-                if(!isset($productosAgrupados[$clave])){
-                    $productosAgrupados[$clave] = $item;
-                    $productosAgrupados[$clave]['cantidad'] = 1;
-                } else {
-                    $productosAgrupados[$clave]['cantidad']++;
-                }
-            }
+       foreach ($_SESSION['saskia'] as $item) {
+           if (!isset($item['izena'])) {
+               $item['izena'] = $item['mota'] . ' ' . $item['marka']; 
+           }
+       
+           $clave = $item['izena'];
+           if (!isset($productosAgrupados[$clave])) {
+               $productosAgrupados[$clave] = $item;
+               $productosAgrupados[$clave]['cantidad'] = 1;
+           } else {
+               $productosAgrupados[$clave]['cantidad']++;
+           }
+       }
             $totalGeneral = 0;
             ?>
             <table>
@@ -89,13 +89,13 @@ $translations = require __DIR__ . "/itzulpenak/" . $lang . ".php";
                             $totalGeneral += $subtotal;
                     ?>
                     <tr>
-                        <td>
-                            <?php if(isset($producto['Argazkia_URL'])): ?>
-                                <img src="<?php echo htmlspecialchars($producto['Argazkia_URL']); ?>" alt="<?php echo htmlspecialchars($producto['izena']); ?>">
-                            <?php else: ?>
-                                <p><?php echo $translations['Argazkia ez dago']; ?></p>
-                            <?php endif; ?>
-                        </td>
+                    <td>
+                        <?php if (!empty($producto['argazkia_URL'])): ?>
+                            <img src="<?php echo htmlspecialchars($producto['argazkia_URL']); ?>" alt="<?php echo htmlspecialchars($producto['izena']); ?>">
+                        <?php else: ?>
+                            <p><?php echo $translations['Argazkia ez dago']; ?></p>
+                        <?php endif; ?>
+                    </td>
                         <td><?php echo htmlspecialchars($producto['izena']); ?></td>
                         <td><?php echo htmlspecialchars($producto['cantidad']); ?></td>
                         <td><?php echo number_format($subtotal, 2, ',', '.'); ?>€</td>
@@ -110,7 +110,7 @@ $translations = require __DIR__ . "/itzulpenak/" . $lang . ".php";
                 </tfoot>
             </table>
             <?php
-        }
+        
         ?>
         <form method="POST">
             <button class="garbitu-btn" id="garbituBotoia" type="submit" name="garbitu"><?php echo $translations['Saskia Garbitu']; ?></button>

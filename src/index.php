@@ -32,14 +32,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['gehitu'])) {
     $kolorea = $_POST['kolorea'];
     $prezioa = $_POST['prezioa'];
     $argazkia = $_POST['argazkia_URL'];
+
     $_SESSION['saskia'][] = [
-        'mota' => $mota, 
-        'marka' => $marka, 
-        'eredua' => $eredua, 
-        'kolorea' => $kolorea, 
-        'prezioa' => $prezioa, 
-        'argazkia_URL' => $argazkia
-    ];
+    'izena' => $mota . ' ' . $marka, 
+    'mota' => $mota,
+    'marka' => $marka,
+    'eredua' => $eredua,
+    'kolorea' => $kolorea,
+    'prezioa' => $prezioa,
+    'argazkia_URL' => $argazkia
+];
 }
 
 $bilatu = isset($_GET['bilatu']) ? $_GET['bilatu'] : '';

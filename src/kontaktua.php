@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <ul>
                 <li><a href="index.php"><?php echo $translations['Hasiera']; ?></a></li>
                 <li><a href="index.php"><?php echo $translations['Produktuak']; ?></a></li>
-                <li><a href="logout.php"><?php echo $translations['Log Out']; ?></a></li>
+                <li><a href="saioa-itxi.php"><?php echo $translations['Log Out']; ?></a></li>
             </ul>
         </nav>
     </header>

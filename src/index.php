@@ -117,7 +117,9 @@ $emaitza = $stmt->get_result();
 
                 <?php if (isset($_SESSION['erabiltzaileak'])): ?>
                 <li>
-                    <a href="saioa-itxi.php" class="logout-button"><?php echo trans('Saioa Itxi'); ?></a>
+                    <form method="post" action="saioa-itxi.php">
+                        <button type="submit" class="logout-button"><?php echo trans('Saioa Itxi'); ?></button>
+                    </form>
                 </li>
                 <?php endif; ?>
 

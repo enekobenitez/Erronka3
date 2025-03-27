@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['selectedLang'])) {
 </head>
 <body>
 <header>
-    <h1><?php echo trans('ABE TECHNOLOGY'); ?></h1>
+    <h1><?php echo trans('PEDALKADA WEBGUNEA'); ?></h1>
     <div class="menu-icon">
         <div class="bar"></div>
         <div class="bar"></div>

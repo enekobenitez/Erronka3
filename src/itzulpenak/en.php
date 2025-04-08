@@ -15,10 +15,25 @@ return [
     'Prezioa' => 'Price',
     'Menu' => 'Menu',
     'Contact' => 'Contact',
-    'ABE TECHNOLOGY' => 'ABE TECHNOLOGY',
+    'PEDALKADA WEBGUNEA' => 'WEB PEDALKADA',
     'Eskubide gustiak erreserbatuta' => 'All rights reserved',
     'Ongi etorri, {usuario}!' => 'Welcome, {usuario}!',
     'Saioa Itxi' => 'Logout',
+    'Bizikletak' => 'Bikes',
+    'Mota, marka, eredua edo kolorea' => 'Type, brand, model or color',
+    'Eredua' => 'Model',
+    'Kolorea' => 'Color',
+    'Egoera' => 'Condition',
+    'Txuria' => 'White',
+    'Gorria' => 'Red',
+    'Urdina' => 'Blue',
+    'Berdea' => 'Green',
+    'Horia' => 'Yellow',
+    'Beltza' => 'Black',
+    'Grisa' => 'Gray',
+    'Morea' => 'Purple',
+    'Laranja' => 'Orange',
+    'Egunean' => 'Dayly',
 
     //erregistroa
     'Erregistroa' => 'Registration',
@@ -39,7 +54,7 @@ return [
 
 
     // Saioa Hasi (Login)
-    'ABE TECHNOLOGY' => 'ABE TECHNOLOGY',
+    'PEDALKADA WEBGUNEA' => 'WEB PEDALKADA',
     'Menu' => 'Menu',
     'Contact' => 'Contact',
     'Login' => 'Login',
@@ -67,6 +82,19 @@ return [
     'Desconocido' => 'Unknown',
     'Error al agregar el producto' => 'Error adding product.',
     'Producto agregado al carrito' => 'Product added to cart.',
+    'Eredua' => 'Model',
+    'Kolorea' => 'Color',
+    'Egoera' => 'Condition',
+    'Txuria' => 'White',
+    'Gorria' => 'Red',
+    'Urdina' => 'Blue',
+    'Berdea' => 'Green',
+    'Horia' => 'Yellow',
+    'Beltza' => 'Black',
+    'Grisa' => 'Gray',
+    'Morea' => 'Purple',
+    'Laranja' => 'Orange',
+    'Egunean' => 'Dayly',
 
     //saskia
     'Zure Saskia' => 'Your Basket',
@@ -82,6 +110,10 @@ return [
     'Saskia Garbitu' => 'Clear Basket',
     'Erosi' => 'Buy',
     'Erosketa arrakastatsua izan da!' => 'Purchase successful!',
+    'Egunak' => 'Days',
+    'Saskia hutsik dago' => 'The cart is empty',
+    'Produktuak' => 'Products',
+    'Produktuak saskian' => 'Products in the cart',
 
     //Kontaktua
     'Hornitzaileak Kudeatu' => 'Manage Suppliers',

@@ -20,21 +20,29 @@ $translations = require __DIR__ . "/itzulpenak/" . $lang . ".php";
 
 $error = ''; 
 
+// LOGIN BLOKEA
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['selectedLang'])) {
-    if (isset($_POST['username']) && isset($_POST['password']) && !empty($_POST['username']) && !empty($_POST['password'])) {
+    if (!empty($_POST['username']) && !empty($_POST['password'])) {
         $username = $_POST['username'];
         $password = $_POST['password'];
 
+        // Prestatu SQL para obtener el usuario
         $sql = "SELECT * FROM erabiltzaileak WHERE Erabiltzailea = :Erabiltzailea";
         $stmt = $pdo->prepare($sql);
         $stmt->execute(['Erabiltzailea' => $username]);
         $user = $stmt->fetch();
 
-        if ($user && password_verify($password, $user['Pasahitza'])) {
-            $_SESSION['erabiltzailea'] = $user['Erabiltzailea'];
-            $_SESSION['saskia'] = [];  
-            header("Location: index.php");
-            exit();
+        if ($user) {
+            // Comparar la contraseña en texto plano directamente
+            if ($password === $user['Pasahitza']) {
+                $_SESSION['erabiltzailea'] = $user['Erabiltzailea'];
+                $_SESSION['rola'] = $user['Rola'] ?? 'langilea';  // Guardar rol (admin o langilea)
+                $_SESSION['saskia'] = [];  
+                header("Location: index.php");
+                exit();
+            } else {
+                $error = isset($translations['Erabiltzaile izena edo pasahitza okerrak.']) ? $translations['Erabiltzaile izena edo pasahitza okerrak.'] : 'Error de autenticación.';
+            }
         } else {
             $error = isset($translations['Erabiltzaile izena edo pasahitza okerrak.']) ? $translations['Erabiltzaile izena edo pasahitza okerrak.'] : 'Error de autenticación.';
         }
